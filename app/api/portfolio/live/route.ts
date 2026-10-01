@@ -6,7 +6,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import { loadPortfolioFromJSON } from '@/lib/portfolio';
+import portfolioJson from '@/data/portfolio.json';
 import { mockMarketData } from '@/lib/market-data';
 import { mockFundamentalData } from '@/lib/fundamentals';
 import { marketDataCache, fundamentalDataCache } from '@/lib/cache';
@@ -16,12 +16,12 @@ import {
   calculatePortfolioSummary,
   calculateSectorSummaries,
 } from '@/lib/calculations';
-import { PortfolioData, LivePortfolioResponse } from '@/types/portfolio';
+import { PortfolioData, LivePortfolioResponse, PortfolioHolding } from '@/types/portfolio';
 
 export async function GET() {
   try {
-    // Load static portfolio data
-    const holdings = loadPortfolioFromJSON('./data/portfolio.json');
+    // Load static portfolio data (bundled at build time so it is available in serverless functions)
+    const holdings = (portfolioJson.holdings ?? []) as unknown as PortfolioHolding[];
 
     if (holdings.length === 0) {
       return NextResponse.json(
