@@ -6,6 +6,9 @@
  */
 
 import { NextResponse } from 'next/server';
+
+// Always compute fresh data on each request
+export const dynamic = 'force-dynamic';
 import portfolioJson from '@/data/portfolio.json';
 import { mockMarketData } from '@/lib/market-data';
 import { mockFundamentalData } from '@/lib/fundamentals';

@@ -130,7 +130,10 @@ function generateId(name: string): string {
 export function loadPortfolioFromJSON(filePath: string): PortfolioHolding[] {
   try {
     const fs = require('fs');
-    const data = fs.readFileSync(filePath, 'utf-8');
+    const path = require('path');
+    // Resolve relative paths from the project root rather than the process working directory
+    const resolvedPath = path.isAbsolute(filePath) ? filePath : path.join(process.cwd(), filePath);
+    const data = fs.readFileSync(resolvedPath, 'utf-8');
     const json = JSON.parse(data);
     return json.holdings || [];
   } catch (error) {
