@@ -38,7 +38,7 @@ export default function SectorChart({ sectors }: SectorChartProps) {
             tickLine={{ stroke: '#e5e7eb' }}
           />
           <Tooltip
-            formatter={(value: number) => [`₹${value.toLocaleString('en-IN')}`, '']}
+            formatter={(value) => [`₹${Number(value ?? 0).toLocaleString('en-IN')}`, '']}
             contentStyle={{
               backgroundColor: 'white',
               border: '1px solid #e5e7eb',

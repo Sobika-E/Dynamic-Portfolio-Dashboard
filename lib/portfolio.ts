@@ -21,7 +21,7 @@ export function loadPortfolioFromExcel(filePath: string): PortfolioHolding[] {
     const sheet = workbook.Sheets[sheetName];
 
     // Convert to array of arrays
-    const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+    const data = XLSX.utils.sheet_to_json<unknown[]>(sheet, { header: 1 });
 
     // Find header row
     let headerRowIndex = -1;
@@ -58,7 +58,7 @@ export function loadPortfolioFromExcel(filePath: string): PortfolioHolding[] {
       if (no && particulars && typeof particulars === 'string' && particulars !== 'Particulars') {
         const rawStock: RawStockData = {
           row: i,
-          no: no,
+          no: no as number | string,
           name: particulars.trim(),
           purchasePrice: Number(row[2]) || 0,
           quantity: Number(row[3]) || 0,
@@ -69,9 +69,9 @@ export function loadPortfolioFromExcel(filePath: string): PortfolioHolding[] {
           presentValue: row[8] ? Number(row[8]) : undefined,
           gainLoss: row[9] ? Number(row[9]) : undefined,
           gainLossPercent: row[10] ? Number(row[10]) : undefined,
-          marketCap: row[11],
-          peTTM: row[12],
-          latestEarnings: row[13],
+          marketCap: row[11] as number | string | undefined,
+          peTTM: row[12] as number | string | undefined,
+          latestEarnings: row[13] as number | string | undefined,
           sector: currentSector || 'Uncategorized',
         };
         rawStocks.push(rawStock);
