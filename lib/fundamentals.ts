@@ -8,8 +8,10 @@
  * We use Yahoo Finance for fundamental data as it includes P/E and earnings.
  */
 
-import yahooFinance from 'yahoo-finance2';
+import YahooFinance from 'yahoo-finance2';
 import { FundamentalData, FundamentalDataResponse, FundamentalDataError } from '../types/portfolio';
+
+const yahooFinance = new YahooFinance();
 
 /**
  * Fetch fundamental data for a single symbol.
@@ -20,7 +22,7 @@ export async function fetchFundamentalData(symbol: string): Promise<FundamentalD
 
     return {
       symbol,
-      peRatio: result.peRatio || undefined,
+      peRatio: result.trailingPE || undefined,
       latestEarnings: result.epsTrailingTwelveMonths || undefined,
       timestamp: new Date().toISOString(),
     };

@@ -30,7 +30,7 @@ export default function AllocationChart({ sectors }: AllocationChartProps) {
             cx="50%"
             cy="50%"
             labelLine={false}
-            label={({ name, percentage }) => `${name}: ${percentage.toFixed(1)}%`}
+            label={({ name, percent }) => `${name}: ${((percent ?? 0) * 100).toFixed(1)}%`}
             outerRadius={100}
             fill="#8884d8"
             dataKey="value"
@@ -41,7 +41,7 @@ export default function AllocationChart({ sectors }: AllocationChartProps) {
             ))}
           </Pie>
           <Tooltip
-            formatter={(value: number) => [`₹${value.toLocaleString('en-IN')}`, 'Investment']}
+            formatter={(value) => [`₹${Number(value ?? 0).toLocaleString('en-IN')}`, 'Investment']}
             contentStyle={{
               backgroundColor: 'white',
               border: '1px solid #e5e7eb',

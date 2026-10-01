@@ -9,8 +9,10 @@
  * In production, consider using a paid API with official support.
  */
 
-import yahooFinance from 'yahoo-finance2';
+import YahooFinance from 'yahoo-finance2';
 import { MarketQuote, MarketDataResponse, MarketDataError } from '../types/portfolio';
+
+const yahooFinance = new YahooFinance();
 
 /**
  * Fetch current market price for a single symbol.
